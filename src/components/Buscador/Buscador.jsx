@@ -1,9 +1,14 @@
 import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box, Grid } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
+import useImagenes from '../hooks/useImagenes';
+import { useState } from 'react';
 
 
-const Buscador = () => {
-    
+const Buscador = () => {    
+
+    const { imagenes, setImagenes } = useImagenes()
+
+    console.log(imagenes)
 
     return(
         <Flex align="center" justify="center">            
@@ -24,6 +29,7 @@ const Buscador = () => {
                   borderColor: 'darkgray'
                 }}
                 borderBottom="2px solid darkgray"
+                
               />
               <InputRightElement width="4.5rem">
                 <IconButton
@@ -33,6 +39,7 @@ const Buscador = () => {
                   w="100%"
                   mr="0.5rem"
                   mt="0.5rem"
+                 
                 />
               </InputRightElement>
             </InputGroup>
@@ -40,6 +47,6 @@ const Buscador = () => {
         </Stack>
       </Flex>
     )
-}
+};
 
-export default Buscador 
+export default Buscador;

@@ -6,25 +6,19 @@ import { Box, Grid, Card, CardBody, Image, Heading, Text, Divider, Flex, Avatar,
 
 const CardComponente = () => {
 
-const { imagenes } = useImagenes()
-
-console.log(imagenes)
 
 
 return (
     <Box>
        <Grid templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} gap={4} mt={8}>
-        {imagenes.map((imagen) =>(
-          <Card key={imagen.id}>
+        <Card>
           <CardBody>
             <Image
-              src={imagen.urls.small}              
+              src=''              
               borderRadius='lg'
             />
-            <Heading size='md' m={5}>{imagen.alt_description.toUpperCase()}</Heading>
           </CardBody>
-        </Card>
-        ))}            
+        </Card>      
       </Grid>
     </Box>
   );
