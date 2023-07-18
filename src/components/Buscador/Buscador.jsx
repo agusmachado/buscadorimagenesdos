@@ -8,19 +8,49 @@ import axios from 'axios'
 const Buscador = () => {
 
     const [ imagenes, setImagenes] = useState([])
+    const [ buscar, setBuscar]  = useState('')
+    const [error, setError] = useState(null)
 
     useEffect(() =>{
         const obtenerImagenes = async ()  => {
-           const response = await axios.get(`https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=5`)
-           setImagenes(response.data)
-           console.log(response.data)
+
+            try{
+              const response = await axios.get(`https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30`)
+        
+               /*  console.log(response.data)     */
+                setImagenes(response.data)  
+            } catch(error){
+                setError(error);
+            }
         }
         obtenerImagenes()
     }, [])
 
+   
+ 
+    
+      const buscarImagenes = async () => {
+           
+           try{ 
+            const response = await axios.get(`https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${buscar}`) 
+            setImagenes(response.data.results)
+            console.log(response.data.results)   
+            
+        } catch(error){
+            setError(error);
+            }
+        }
+
+        const handleBuscarClick = () => {
+            buscarImagenes();
+          };
+        
+        if (error) {
+            return <p>Error de carga:{error.mensaje}</p>
+        }
 
     return(
-        <Box>
+        <Box>            
             <Flex align="center" justify="center">
                 <Stack spacing={2} w={['100%', '100%', '50%']}>
                 <FormControl>
@@ -39,9 +69,11 @@ const Buscador = () => {
                         borderColor: 'darkgray'
                         }}
                         borderBottom="2px solid darkgray"
+                        onChange={(e) => setBuscar(e.target.value)}
                     />
                     <InputRightElement width="4.5rem">
-                        <IconButton                  
+                        <IconButton
+                        onClick={handleBuscarClick}               
                         aria-label="Search database"
                         icon={<SearchIcon />}
                         h="100%"
@@ -55,7 +87,13 @@ const Buscador = () => {
                 </Stack>
             </Flex>
             
-            <Grid templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} gap={4} mt={8}>
+            <Grid 
+                templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} 
+                gap={4} 
+                mt={8}
+                align="center"  
+                justifyItems="center"
+            >
             {imagenes.map(imagen => (
                 <Card 
                     maxW='sm'
@@ -76,9 +114,12 @@ const Buscador = () => {
                   <Text>
                     <strong>Cámara:</strong> {imagen.exif?.name || 'No disponible'}
                   </Text> 
-                  <Text>
-                    <strong>Tags:</strong> {imagen.tag?.tag || 'No disponible'}
-                </Text>                 
+                    <strong>Tags: </strong>
+                  <Text
+                    color='red'
+                  >   
+                        {imagen.tags?.map((tag) => tag.title).join(', ') || 'No disponible'}
+                   </Text>                 
                 </CardBody>
                 <Divider />                
               </Card>
