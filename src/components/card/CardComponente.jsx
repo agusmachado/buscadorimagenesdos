@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useImagenes from "../hooks/useImagenes"
 import { Box, Grid, Card, CardBody, Image, Heading, Text, Stack, HStack, Tag, TagLabel, Divider, Flex, Avatar, AspectRatio } from '@chakra-ui/react';
 
@@ -6,9 +7,13 @@ import { Box, Grid, Card, CardBody, Image, Heading, Text, Stack, HStack, Tag, Ta
 
 const CardComponente = () => {
 
-  const { imagenes } = useImagenes();
+  const { imagenes, buscarImagenes } = useImagenes();
   console.log(imagenes)
+  
 
+  const handleSearch = async (searchTerm) => {
+    await buscarImagenes(searchTerm); 
+  };
 
 return (
     <Box>
@@ -40,6 +45,8 @@ return (
                     borderRadius="full"
                     variant="solid"
                     colorScheme="green"
+                    onClick={() => handleSearch(tag.title)}                    
+                    cursor="pointer"
                   >
                     <TagLabel>{tag.title}</TagLabel>
                   </Tag>
