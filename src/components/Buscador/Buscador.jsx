@@ -8,8 +8,7 @@ const Buscador = () => {
   const [busqueda, setBusqueda] = useState('');
 
   const handleSearch = async () => {
-    await buscarImagenes(busqueda);
-    console.log(busqueda)
+    await buscarImagenes(busqueda);    
   };
 
   return (
