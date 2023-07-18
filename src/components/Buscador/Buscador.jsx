@@ -1,10 +1,10 @@
 import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { useContext, useState } from 'react';
-import ImagenesContext from '../context/ImagenesProvider';
+import { useState } from 'react';
+import useImagenes from '../hooks/useImagenes';
 
 const Buscador = () => {
-  const { buscarImagenes } = useContext(ImagenesContext);
+  const { buscarImagenes } = useImagenes();
   const [busqueda, setBusqueda] = useState('');
 
   const handleSearch = async () => {
