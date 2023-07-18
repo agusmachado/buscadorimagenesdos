@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import API_KEY from '../config';
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ const ImagenesProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const imagenesRandom = async () => {
+    const obtenerImagenesRandom = async () => {
       try {
         const response = await axios.get(
           `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=1`
@@ -19,19 +19,22 @@ const ImagenesProvider = ({ children }) => {
         setError(error);
       }
     };
-    imagenesRandom();
+
+    obtenerImagenesRandom();
   }, []);
 
-  const buscarImagenes = async (query) => {
+  const buscarImagenes = async (busqueda) => {
     try {
       const response = await axios.get(
-        `https://api.unsplash.com/search/photos?client_id=${API_KEY}&query=${query}`
+        `https://api.unsplash.com/search/photos?client_id=${API_KEY}&query=${busqueda}`
       );
-      setImagenes(response.data);
+      setImagenes(response.data.results);
     } catch (error) {
       setError(error);
     }
   };
+
+  console.log(imagenes);
 
   return (
     <ImagenesContext.Provider
@@ -47,4 +50,6 @@ const ImagenesProvider = ({ children }) => {
 
 export { ImagenesProvider };
 export default ImagenesContext;
+
+
 
