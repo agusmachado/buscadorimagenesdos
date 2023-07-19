@@ -48,10 +48,12 @@ const CardComponente = () => {
     };
   
     obtenerCamara();
-  }, []);
+  }, [imagenes]);
   
   
-  
+  const getCamaraExif = (imagenId) => {
+    return camara.find((camara) => camara.id === imagenId);
+  };
 
 return (
     <Box>
@@ -80,7 +82,7 @@ return (
               <strong>Ubicación:</strong> {imagen.user?.location || 'No disponible'}
             </Text>
             <Text>
-              <strong>Cámara:</strong> {camara[index]?.exif?.name || 'No disponible'}
+              <strong>Cámara:</strong> {getCamaraExif(imagen.id)?.exif?.name || 'No disponible'}
             </Text>
           </CardBody>   
             
