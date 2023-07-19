@@ -1,6 +1,7 @@
-import { useState } from "react";
 import useImagenes from "../hooks/useImagenes"
-import { Box, Grid, Card, CardBody, Image, Heading, Text, Stack, HStack, Tag, TagLabel, Divider, Flex, Avatar, AspectRatio } from '@chakra-ui/react';
+import { Box, Grid, Card, CardBody, Image, Heading, Text, Stack, HStack, Tag, TagLabel, Divider, CardFooter, Flex, Avatar, AspectRatio } from '@chakra-ui/react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 
@@ -11,27 +12,44 @@ const CardComponente = () => {
   console.log(imagenes)
   
 
-  const handleSearch = async (searchTerm) => {
-    await buscarImagenes(searchTerm); 
-  };
+  const handleSearch = async (busquedaTag) => {
+    await buscarImagenes(busquedaTag); 
+  }; 
 
 return (
     <Box>
        <Grid templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} gap={4} mt={8}>
         {imagenes.map((imagen) =>(
           <Card
-            key={imagen.id}
+            key={imagen.id}  
           >
           <CardBody>
-            <Image
-              src={imagen.urls.regular}              
-              borderRadius='lg'
-            />
+            <AspectRatio ratio={1}>
+              <LazyLoadImage
+                src={imagen.urls.regular}
+                width='100%'
+                height='100%'
+              />
+            </AspectRatio>
+            
             <Stack mt='6' spacing='3'>
               <Heading size='md'>{imagen.alt_description.toUpperCase()}</Heading>
-              <Text>
-                
-              </Text>                
+            </Stack>
+            <Text>
+              <strong>Ubicación:</strong> {imagen.user?.location || 'No disponible'}
+            </Text>
+            <Text>
+              <strong>Cámara:</strong> {imagen.exif?.name || 'No disponible'}
+            </Text>
+          </CardBody>   
+            
+            
+            <Divider />
+            
+                      
+          <CardFooter>
+                      
+                              
                
               <HStack spacing={4}>
                 { imagen.tags && 
@@ -45,7 +63,8 @@ return (
                     borderRadius="full"
                     variant="solid"
                     colorScheme="green"
-                    onClick={() => handleSearch(tag.title)}                    
+                    onClick={() => handleSearch(tag.title)} 
+                    // En el onClick colocamos una función anónima para que no se ejecute un bucle infinito. Sólo se va a ejecutar cuando se haga click.                   
                     cursor="pointer"
                   >
                     <TagLabel>{tag.title}</TagLabel>
@@ -55,8 +74,7 @@ return (
               </HStack>
 
               
-            </Stack>
-          </CardBody>
+         </CardFooter>   
         </Card>
         ))}
               

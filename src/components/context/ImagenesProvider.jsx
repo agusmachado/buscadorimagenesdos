@@ -12,7 +12,7 @@ const ImagenesProvider = ({ children }) => {
     const obtenerImagenesRandom = async () => {
       try {
         const response = await axios.get(
-          `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=1`
+          `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30`
         );
         setImagenes(response.data);
       } catch (error) {
@@ -26,7 +26,7 @@ const ImagenesProvider = ({ children }) => {
   const buscarImagenes = async (busqueda) => {
     try {
       const response = await axios.get(
-        `https://api.unsplash.com/search/photos?client_id=${API_KEY}&query=${busqueda}`
+        `https://api.unsplash.com/search/photos?client_id=${API_KEY}&query=${busqueda}&per_page=30&orientation=landscape`
       );
       setImagenes(response.data.results);
     } catch (error) {
