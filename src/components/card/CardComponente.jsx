@@ -16,7 +16,7 @@ const CardComponente = () => {
   const { imagenes, buscarImagenes } = useImagenes()
  /*  console.log(imagenes) */
 
-  const [camara, setCamara] = useState()
+ const [camaras, setCamaras] = useState([]);
   const [error, setError] = useState(null);
   
   // Activo la búsqueda cada vez que hago click en un tag
@@ -26,34 +26,27 @@ const CardComponente = () => {
 
 
  // Creamos un useEffect para acceder a la cámara de cada imagen. Tenemos que hacerlo así, porque la API de search no tiene la propiedad exif, que es la que contiene los datos de la cámara.
-  useEffect(() => {
-    const obtenerCamara = async () => {
-      try {
-        //Obtengo el array con los id de las imágenes
-        const ids = imagenes.map((imagen) => imagen.id);
-        // Almaceno los resultados de camaras.push(response.data) en un array vacío
-        const camaras = [];
-        
-        // Recorro cada id para encontrar la data de la API
-        for (const id of ids) {
-          const response = await axios.get(`https://api.unsplash.com/photos/${id}?client_id=${API_KEY}`);
-          camaras.push(response.data);
-        }
-
-        // Actualizo el estado de la variable cámara
-        setCamara(camaras);
-      } catch (error) {
-        setError(error);
-      }
-    };
-  
-    obtenerCamara();
-  }, [imagenes]);
-  
-  
-  const getCamaraExif = (imagenId) => {
-    return camara.find((camara) => camara.id === imagenId);
+ useEffect(() => {
+  const obtenerCamaras = async () => {
+    try {
+      const ids = imagenes.map((imagen) => imagen.id);
+      const responses = await Promise.all(
+        ids.map((id) =>
+          axios.get(`https://api.unsplash.com/photos/${id}?client_id=${API_KEY}`)
+        )
+      );
+      const camaras = responses.map((response) => response.data?.exif?.model || 'No disponible');
+      setCamaras(camaras);
+    } catch (error) {
+      setError(error);
+    }
   };
+
+  obtenerCamaras();
+}, [imagenes]);
+  
+  
+  
 
 return (
     <Box>
@@ -82,7 +75,7 @@ return (
               <strong>Ubicación:</strong> {imagen.user?.location || 'No disponible'}
             </Text>
             <Text>
-              <strong>Cámara:</strong> {getCamaraExif(imagen.id)?.exif?.name || 'No disponible'}
+              <strong>Cámara:</strong>  {camaras[index] || 'No disponible'}
             </Text>
           </CardBody>   
             
