@@ -19,11 +19,17 @@ const Buscador = () => {
 
   };
 
+  
+
   return (
     <Flex align="center" justify="center">
+        
+        
       <Stack spacing={2} w={['100%', '100%', '50%']}>
+        
         <FormControl>
             {/* Con el htmlFor hago accesible el formulario con el teclado a través de los id en el Input y en el IconButton */}
+              
           <InputGroup htmlFor='nombre'>
             
             <Input
@@ -57,9 +63,10 @@ const Buscador = () => {
                 // Con el evento onClick, activo la funció para buscar
 
                 onClick={activarBusqueda}
+                type='button'
               />
             </InputRightElement>
-          </InputGroup>
+          </InputGroup>          
         </FormControl>
       </Stack>
     </Flex>

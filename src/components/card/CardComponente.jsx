@@ -44,7 +44,7 @@ const CardComponente = () => {
         
         // Actualizamos los datos de la cámara para que el componente se renderice con los nuevos datos de la cámara
         camaras.forEach((camara) => {
-          console.log(camara.exif.name);
+          /* console.log(camara.exif.name); */
         });
       } catch (error) {
         setError(error);
@@ -67,6 +67,7 @@ return (
           >
           <CardBody>
             <AspectRatio ratio={1}>
+              {/* Utilizo React Lazy Load para descargar las imágenes a medida que se va scrolleando hacia abaajo */}
               <LazyLoadImage
                 src={imagen.urls.regular}
                 width='100%'
