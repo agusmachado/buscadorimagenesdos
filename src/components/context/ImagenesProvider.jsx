@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import API_KEY from '../config'; // Traigo la KEY desde un archivo externo, cosa de tenerla disponible en todos los componentes
 import axios from 'axios';
 
@@ -38,7 +38,7 @@ const ImagenesProvider = ({ children }) => {
     }
   };
 
-  console.log(imagenes);
+ /*  console.log(imagenes); */
 
   // En el return paso las imagenes y la función para buscar en la API, de modo que estén disponibles en el resto de los componentes.
 
