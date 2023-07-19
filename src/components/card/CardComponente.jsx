@@ -29,23 +29,19 @@ const CardComponente = () => {
   useEffect(() => {
     const obtenerCamara = async () => {
       try {
-        //Extraemos los id de las imágenes y los pasamos a la API que contiene exif
+        //Obtengo el array con los id de las imágenes
         const ids = imagenes.map((imagen) => imagen.id);
-        const promises = ids.map((id) =>
-          axios.get(`https://api.unsplash.com/photos/${id}?client_id=${API_KEY}`)
-        );
-
-        // Esperamos que se resuelvan todas las promises para obtener un arreglo con todas las responses
-        const responses = await Promise.all(promises);
-
-        // Acá recorremos todas las responses con el map y obtenemos los objetos con data 
-        const camaras = responses.map((response) => response.data);
-        setCamara(camaras);
+        // Almaceno los resultados de camaras.push(response.data) en un array vacío
+        const camaras = [];
         
-        // Actualizamos los datos de la cámara para que el componente se renderice con los nuevos datos de la cámara
-        camaras.forEach((camara) => {
-          /* console.log(camara.exif.name); */
-        });
+        // Recorro cada id para encontrar la data de la API
+        for (const id of ids) {
+          const response = await axios.get(`https://api.unsplash.com/photos/${id}?client_id=${API_KEY}`);
+          camaras.push(response.data);
+        }
+
+        // Actualizo el estado de la variable cámara
+        setCamara(camaras);
       } catch (error) {
         setError(error);
       }
