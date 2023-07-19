@@ -11,7 +11,7 @@ const Buscador = () => {
   const [busqueda, setBusqueda] = useState('');
 
   // Al activar la función activarBusqueda, reviso el Input y ejecuto la función buscarImagenes que traigo desde el provider con el contenido volcado en el Input.
-  
+
   const activarBusqueda = async () => {
 
     await buscarImagenes(busqueda);    
@@ -23,26 +23,30 @@ const Buscador = () => {
     <Flex align="center" justify="center">
       <Stack spacing={2} w={['100%', '100%', '50%']}>
         <FormControl>
-          <InputGroup>
+            {/* Con el htmlFor hago accesible el formulario con el teclado a través de los id en el Input y en el IconButton */}
+          <InputGroup htmlFor='nombre'>
+            
             <Input
-              type="text"
-              placeholder="Ej: Paisaje, Skate, Ciudad, etc..."
-              size="lg"
-              border="none"
-              borderColor="transparent"
-              _hover={{
-                borderColor: 'darkgray'
-              }}
-              _focus={{
-                boxShadow: 'none',
-                borderColor: 'darkgray'
-              }}
-              borderBottom="2px solid darkgray"
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
+                id='nombre'
+                type="text"
+                placeholder="Ej: Paisaje, Skate, Ciudad, etc..."
+                size="lg"
+                border="none"
+                borderColor="transparent"
+                _hover={{
+                    borderColor: 'darkgray'
+                }}
+                _focus={{
+                    boxShadow: 'none',
+                    borderColor: 'darkgray'
+                }}
+                borderBottom="2px solid darkgray"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
             />
             <InputRightElement width="4.5rem">
               <IconButton
+                id='nombre'
                 aria-label="Search database"
                 icon={<SearchIcon />}
                 h="100%"
