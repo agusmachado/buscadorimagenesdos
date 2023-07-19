@@ -27,6 +27,8 @@ const CardComponente = () => {
 
  // Creamos un useEffect para acceder a la cámara de cada imagen. Tenemos que hacerlo así, porque la API de search no tiene la propiedad exif, que es la que contiene los datos de la cámara.
  useEffect(() => {
+
+  // Obtengo los nombres de las cámaras con el id específico que les doy
   const obtenerCamaras = async () => {
     try {
       const ids = imagenes.map((imagen) => imagen.id);
@@ -45,7 +47,13 @@ const CardComponente = () => {
   obtenerCamaras();
 }, [imagenes]);
   
-  
+const handleImageHover = (e) => {
+  e.target.style.transform = 'scale(1.1)';
+};
+
+const handleImageLeave = (e) => {
+  e.target.style.transform = 'scale(1)';
+};
   
 
 return (
@@ -60,13 +68,17 @@ return (
             <AspectRatio ratio={1}>
               {/* Utilizo React Lazy Load para descargar las imágenes a medida que se va scrolleando hacia abaajo */}
               <LazyLoadImage
-                src={imagen.urls.regular}
+                src={imagen.urls.regular}                
+                effect='blur'
                 width='100%'
                 height='100%'
+                onMouseEnter={handleImageHover}
+                onMouseLeave={handleImageLeave}
+                style={{ transition: 'transform 0.3s ease' }}
               />
             </AspectRatio>
             
-            <Stack mt='6' spacing='3'>
+            <Stack mt='1' spacing='3'>
               <Heading size='md'>{imagen.alt_description.toUpperCase()}</Heading>
             </Stack>
 
