@@ -1,9 +1,5 @@
 ![Banner](src/assets/captura_buscador.jpg)
 
-<!-- contador de visitas -->
-<p align="center"> 
-  <img src="https://profile-counter.glitch.me/kmhmubin/count.svg" />
-</p>
 
 <!-- Mensaje de bienvenida -->
 <h2>¡Bienvenido a mi página para buscar imágenes de Unsplash!<img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="25px"></h2>
