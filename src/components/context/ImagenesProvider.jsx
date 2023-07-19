@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from 'react';
-import API_KEY from '../config';
+import API_KEY from '../config'; // Traigo la KEY desde un archivo externo, cosa de tenerla disponible en todos los componentes
 import axios from 'axios';
 
 const ImagenesContext = createContext();
@@ -7,6 +7,8 @@ const ImagenesContext = createContext();
 const ImagenesProvider = ({ children }) => {
   const [imagenes, setImagenes] = useState([]);
   const [error, setError] = useState(null);
+
+  // Escribo el useEffect para traer las imágenes random que se cargarán una sola vez cuando se inicie la página.
 
   useEffect(() => {
     const obtenerImagenesRandom = async () => {
@@ -23,6 +25,8 @@ const ImagenesProvider = ({ children }) => {
     obtenerImagenesRandom();
   }, []);
 
+  // Creo la función para buscar las imágenes dentro de UNSPLASH. Esta función será llamada a través del evento onClick y el resultado reemplazará la búsqueda random. 
+
   const buscarImagenes = async (busqueda) => {
     try {
       const response = await axios.get(
@@ -35,6 +39,8 @@ const ImagenesProvider = ({ children }) => {
   };
 
   console.log(imagenes);
+
+  // En el return paso las imagenes y la función para buscar en la API, de modo que estén disponibles en el resto de los componentes.
 
   return (
     <ImagenesContext.Provider

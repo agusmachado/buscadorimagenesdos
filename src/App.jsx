@@ -11,6 +11,7 @@ function App() {
   
 
   return (
+    //Envuelvo mi código en el provider para poder pasar los datos por todos los componentes
     <ImagenesProvider>    
       
       <Container className="mt-5">

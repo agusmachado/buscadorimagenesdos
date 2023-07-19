@@ -4,12 +4,19 @@ import { useState } from 'react';
 import useImagenes from '../hooks/useImagenes';
 
 const Buscador = () => {
+
+// Aquí pongo disponible la función para buscar imágenes que se activará a través del onClick que, a su vez, tomará la información volcada en el Input para realizar la búsqueda.
+
   const { buscarImagenes } = useImagenes();
   const [busqueda, setBusqueda] = useState('');
 
-  const handleSearch = async () => {
+  // Al activar la función activarBusqueda, reviso el Input y ejecuto la función buscarImagenes que traigo desde el provider con el contenido volcado en el Input.
+  
+  const activarBusqueda = async () => {
+
     await buscarImagenes(busqueda);    
     setBusqueda('') // Vacío el Input después de la búsqueda
+
   };
 
   return (
@@ -42,7 +49,10 @@ const Buscador = () => {
                 w="100%"
                 mr="0.5rem"
                 mt="0.5rem"
-                onClick={handleSearch}
+
+                // Con el evento onClick, activo la funció para buscar
+
+                onClick={activarBusqueda}
               />
             </InputRightElement>
           </InputGroup>

@@ -8,11 +8,12 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const CardComponente = () => {
 
+  // Traigo las imagenes y la función buscarImagenes que están en el context y pasan por el hook
   const { imagenes, buscarImagenes } = useImagenes();
   console.log(imagenes)
   
-
-  const handleSearch = async (busquedaTag) => {
+  // Activo la búsqueda cada vez que hago click en un tag
+  const activarBusqueda = async (busquedaTag) => {
     await buscarImagenes(busquedaTag); 
   }; 
 
@@ -63,7 +64,7 @@ return (
                     borderRadius="full"
                     variant="solid"
                     colorScheme="green"
-                    onClick={() => handleSearch(tag.title)} 
+                    onClick={() => activarBusqueda(tag.title)} 
                     // En el onClick colocamos una función anónima para que no se ejecute un bucle infinito. Sólo se va a ejecutar cuando se haga click.                   
                     cursor="pointer"
                   >
