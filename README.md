@@ -31,6 +31,8 @@ El proyecto consiste en mostrar una galería de imágenes random cuando el usuar
 
 - También, se hizo accesible, a través del teclado, el Input.
 
+- La aplicación es responsive.
+
 - Uno de los puntos que más costaron fue el de mostrar las cámaras en los resultados de búsqueda, ya que la API disponible para hacer las búsquedas no tiene esta extensión. Para resolver esta situación, se hizo una llamada a la API que si tiene esta extensión, dentro de la Card y se le pasó el id de cada imagen que llegaba a la Card. Una vez tenido esto, se pasó el resultado de la cámara a la Card. Todo dentro del mismo componente.
 
 - Por último, el proyecto se encuentra deployado en Github y se puede acceder a través del siguiente link: **[Buscador de Imágenes](https://agusmachado.github.io/buscadorimagenesdos/)**
