@@ -9,6 +9,7 @@ const Buscador = () => {
 
   const handleSearch = async () => {
     await buscarImagenes(busqueda);    
+    setBusqueda('') // Vacío el Input después de la búsqueda
   };
 
   return (
